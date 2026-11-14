@@ -1,0 +1,14 @@
+CONFIDENTIAL UNIVERSITY LAB REPORT
+Course: Operating Systems & Computer Security
+Topic: Cryptographic File Protection Systems
+Date: 2026-11-14
+Status: Verified
+
+Key Findings:
+1. Symmetric encryption using AES-256 with CBC mode provides robust confidentiality.
+2. Deriving keys using PBKDF2 with 100,000 hash iterations effectively counters dictionary & rainbow table attacks.
+3. Combining tar archiving with stream encryption allows entire directory hierarchies to be encrypted atomically.
+4. SHA-256 provides integrity verification to detect any tampering or bit-rot.
+
+Authorized for demonstration purposes.
+

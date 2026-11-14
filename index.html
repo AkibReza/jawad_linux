@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureVault | University Shell Scripting Project & Faculty Defense Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        .code-glow {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-slate-950 font-bold shadow-lg shadow-emerald-500/20">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-extrabold text-lg tracking-tight text-white flex items-center gap-2">
+                        SecureVault
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">v1.2.0</span>
+                    </span>
+                    <p class="text-xs text-slate-400 hidden sm:block">Linux Shell Scripting Project • University Defense Guide</p>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="#overview" class="text-slate-300 hover:text-emerald-400 transition">Overview</a>
+                <a href="#comparison" class="text-slate-300 hover:text-emerald-400 transition">Why It's Better</a>
+                <a href="#architecture" class="text-slate-300 hover:text-emerald-400 transition">Architecture</a>
+                <a href="#code-walkthrough" class="text-slate-300 hover:text-emerald-400 transition">Code Walkthrough</a>
+                <a href="#viva" class="text-slate-300 hover:text-emerald-400 transition">Viva Q&A</a>
+                <a href="#terminal" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition shadow-sm">Live Simulator</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-16 pb-20 overflow-hidden border-b border-slate-800">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(16,185,129,0.15),rgba(255,255,255,0))]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-700/60 text-xs font-semibold text-emerald-400 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    University Project Presentation Ready
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                    File & Directory <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400">Encryption Suite</span> for Linux
+                </h1>
+                <p class="mt-6 text-lg text-slate-300 leading-relaxed">
+                    A student-friendly, defense-ready UNIX Shell Script built from scratch. Implements military-grade 
+                    <span class="text-emerald-400 font-semibold">AES-256-CBC</span> with <span class="text-emerald-400 font-semibold">PBKDF2 key derivation</span>, automatic directory packaging, signal trapping, and cryptographic SHA-256 integrity checks.
+                </p>
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <a href="#terminal" class="px-6 py-3 rounded-xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Test in Terminal Simulator
+                    </a>
+                    <a href="#viva" class="px-6 py-3 rounded-xl bg-slate-800 text-white font-semibold hover:bg-slate-700 transition border border-slate-700 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Faculty Viva Prep & Answers
+                    </a>
+                </div>
+
+                <!-- Quick Tech Stack Badges -->
+                <div class="mt-12 flex flex-wrap items-center gap-3 text-xs font-mono text-slate-400">
+                    <span class="text-slate-500 font-sans font-semibold">BUILT WITH:</span>
+                    <span class="px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">GNU Bash 5.x</span>
+                    <span class="px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">OpenSSL 3.x</span>
+                    <span class="px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">tar & gzip</span>
+                    <span class="px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">sha256sum</span>
+                    <span class="px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">POSIX coreutils</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+
+        <!-- Section: Overview & Motivation -->
+        <section id="overview" class="space-y-8">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">01. Project Foundation</span>
+                <h2 class="text-3xl font-extrabold text-white">Project Overview & Objectives</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Confidentiality</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Encrypts files using standard <strong class="text-slate-200">AES-256-CBC</strong>. Employs <strong class="text-slate-200">PBKDF2</strong> with 100,000 iterations and salt, rendering brute-force and rainbow-table attacks computationally infeasible.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition">
+                    <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Atomic Directory Support</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Solves the classic limitation where tools only encrypt single files. Seamlessly bundles entire directory hierarchies with <strong class="text-slate-200">tar+gzip</strong> before encryption, restoring them automatically on decrypt.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition">
+                    <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Integrity & Accountability</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Computes <strong class="text-slate-200">SHA-256 cryptographic hashes</strong> to detect file tampering or corruption. Maintains a timestamped <strong class="text-slate-200">audit trail</strong> (<code class="text-emerald-400 font-mono text-xs">vault_audit.log</code>) of all operations.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Comparison - What Makes It More Than What's Online -->
+        <section id="comparison" class="space-y-8">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">02. Academic Differentiation</span>
+                <h2 class="text-3xl font-extrabold text-white">Why This Is More Than Online Scripts</h2>
+                <p class="text-slate-400 text-sm mt-1">Directly addresses faculty concerns about online tutorial clones.</p>
+            </div>
+
+            <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/40">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-900/90 text-xs uppercase tracking-wider text-slate-400 border-b border-slate-800">
+                        <tr>
+                            <th class="py-4 px-6">Evaluation Criteria</th>
+                            <th class="py-4 px-6 text-red-400">Typical Online Tutorial Script</th>
+                            <th class="py-4 px-6 text-emerald-400 font-bold bg-emerald-950/20">SecureVault (Our Project)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60 font-sans">
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-slate-200">Cryptographic Algorithm</td>
+                            <td class="py-4 px-6 text-slate-400">Basic AES or deprecated DES without modern key derivation</td>
+                            <td class="py-4 px-6 text-emerald-300 font-medium bg-emerald-950/20">AES-256-CBC with PBKDF2 (100,000 iterations + salt)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-slate-200">Directory Support</td>
+                            <td class="py-4 px-6 text-red-400">Fails completely on folders ("Is a directory" error)</td>
+                            <td class="py-4 px-6 text-emerald-300 font-medium bg-emerald-950/20">Full folder support via integrated tar+gzip streaming</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-slate-200">Auto-Detection on Decrypt</td>
+                            <td class="py-4 px-6 text-slate-400">None; user must know in advance what kind of file it was</td>
+                            <td class="py-4 px-6 text-emerald-300 font-medium bg-emerald-950/20">Inspects decrypted stream via <code class="font-mono text-xs bg-slate-800 px-1.5 py-0.5 rounded">tar -tzf</code> and auto-extracts</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-slate-200">Password Safety in Memory</td>
+                            <td class="py-4 px-6 text-red-400">Exposed in command arguments (<code class="text-xs font-mono">-pass pass:$p</code> shows in <code class="text-xs font-mono">ps aux</code>)</td>
+                            <td class="py-4 px-6 text-emerald-300 font-medium bg-emerald-950/20">Streams securely through <code class="font-mono text-xs bg-slate-800 px-1.5 py-0.5 rounded">-pass stdin</code>; masked with <code class="font-mono text-xs bg-slate-800 px-1.5 py-0.5 rounded">read -s</code></td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-slate-200">Signal Trapping (Ctrl+C)</td>
+                            <td class="py-4 px-6 text-red-400">Leaves plaintext temp files abandoned in <code class="text-xs font-mono">/tmp</code></td>
+                            <td class="py-4 px-6 text-emerald-300 font-medium bg-emerald-950/20">POSIX <code class="font-mono text-xs bg-slate-800 px-1.5 py-0.5 rounded">trap cleanup EXIT INT TERM</code> overwrites and unlinks temp files</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-slate-200">Tamper & Integrity Check</td>
+                            <td class="py-4 px-6 text-slate-400">None; corrupted files output raw OpenSSL errors</td>
+                            <td class="py-4 px-6 text-emerald-300 font-medium bg-emerald-950/20">SHA-256 checksum verification before & after + audit log comparison</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-slate-200">Auditing & Security Log</td>
+                            <td class="py-4 px-6 text-slate-400">No logging whatsoever</td>
+                            <td class="py-4 px-6 text-emerald-300 font-medium bg-emerald-950/20">Timestamped <code class="font-mono text-xs bg-slate-800 px-1.5 py-0.5 rounded">vault_audit.log</code> recording user, action, and hashes</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-slate-200">CLI & Automated Testing</td>
+                            <td class="py-4 px-6 text-slate-400">Single interactive prompt only</td>
+                            <td class="py-4 px-6 text-emerald-300 font-medium bg-emerald-950/20">Dual-mode: Interactive menu + CLI flags (<code class="text-xs font-mono">-e, -d, -v, -t</code>) + test suite</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section: Architecture & Logic Workflow -->
+        <section id="architecture" class="space-y-8">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">03. System Architecture</span>
+                <h2 class="text-3xl font-extrabold text-white">How The Script Operates Under The Hood</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Encryption Flow Card -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-mono font-bold">1</span>
+                            Encryption Pipeline
+                        </h3>
+                        <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">File or Directory</span>
+                    </div>
+                    
+                    <div class="space-y-3 text-xs font-mono">
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step A</span>
+                            <span class="text-slate-300">Input validation: Verify target exists (<code class="text-emerald-400">-f</code> or <code class="text-emerald-400">-d</code>).</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step B</span>
+                            <span class="text-slate-300">If Directory: Archive to temp tarball via <code class="text-emerald-400">tar -czf</code>.</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step C</span>
+                            <span class="text-slate-300">Masked password prompt (<code class="text-emerald-400">read -s</code>) with double confirmation.</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step D</span>
+                            <span class="text-slate-300">Compute plain SHA-256 checksum for audit & integrity.</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step E</span>
+                            <span class="text-slate-300"><code class="text-emerald-400">openssl enc -aes-256-cbc -salt -pbkdf2 -iter 100000</code></span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step F</span>
+                            <span class="text-slate-300">Log to <code class="text-emerald-400">vault_audit.log</code> & optional secure shred (<code class="text-emerald-400">shred/dd</code>).</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decryption Flow Card -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center text-xs font-mono font-bold">2</span>
+                            Decryption & Auto-Detection Pipeline
+                        </h3>
+                        <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">Smart Extraction</span>
+                    </div>
+                    
+                    <div class="space-y-3 text-xs font-mono">
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step A</span>
+                            <span class="text-slate-300">Read <code class="text-teal-400">*.vault</code> package; create secure isolated temp file.</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step B</span>
+                            <span class="text-slate-300">Prompt for password; execute <code class="text-teal-400">openssl enc -d</code> via stdin.</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step C</span>
+                            <span class="text-slate-300">Verify return code <code class="text-teal-400">$?</code> (reject wrong password cleanly).</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step D</span>
+                            <span class="text-slate-300"><strong class="text-emerald-300">Magic Auto-Detect:</strong> Run <code class="text-teal-400">tar -tzf $temp</code>.</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step E</span>
+                            <span class="text-slate-300">If archive: extract tree. If single file: restore file.</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center gap-3">
+                            <span class="text-slate-500">Step F</span>
+                            <span class="text-slate-300">Compute restored SHA-256 and confirm integrity match.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Defensive Trap Banner -->
+            <div class="p-6 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white text-base">Key Faculty Talking Point: Signal Handling with <code class="text-emerald-400 font-mono">trap</code></h4>
+                        <p class="text-slate-400 text-xs mt-0.5">
+                            If a user hits <kbd class="px-1.5 py-0.5 rounded bg-slate-800 font-mono text-[10px] text-slate-300">Ctrl+C</kbd> or sends a SIGTERM, the script catches it via <code class="text-emerald-400 font-mono">trap cleanup EXIT INT TERM</code>, overwriting temporary files with random bytes from <code class="text-emerald-400 font-mono">/dev/urandom</code> before deleting them.
+                        </p>
+                    </div>
+                </div>
+                <span class="text-xs font-mono font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-lg whitespace-nowrap">
+                    Zero Data Leakage
+                </span>
+            </div>
+        </section>
+
+        <!-- Section: Code Walkthrough -->
+        <section id="code-walkthrough" class="space-y-8">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">04. Code Inspection</span>
+                <h2 class="text-3xl font-extrabold text-white">Step-by-Step Code Walkthrough</h2>
+                <p class="text-slate-400 text-sm mt-1">Review exactly how each critical function is structured so you can explain it line by line.</p>
+            </div>
+
+            <!-- Code Accordion / Cards -->
+            <div class="space-y-6">
+                <!-- Snippet 1: Directory Encryption -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+                    <div class="p-4 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+                        <span class="font-mono text-sm font-bold text-emerald-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                            Function: encrypt_directory()
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">vault.sh lines 205-265</span>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <pre class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed"><code># 1. Create temporary tar archive
+local temp_tar
+temp_tar=$(mktemp "/tmp/vault_dir_XXXXXX.tar.gz" 2>/dev/null || mktemp "./.vault_dir_XXXXXX.tar.gz")
+TEMP_FILES+=("$temp_tar")
+
+# 2. Bundle folder contents into archive preserving hierarchy
+tar -czf "$temp_tar" -C "$(dirname "$indir")" "$(basename "$indir")" 2>/dev/null
+
+# 3. Encrypt archive with AES-256-CBC and PBKDF2 (100,000 iterations)
+printf "%s" "$password" | openssl enc -aes-256-cbc -salt -pbkdf2 -iter 100000 \
+    -in "$temp_tar" -out "$outfile" -pass stdin 2>/dev/null</code></pre>
+                        
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800/60 text-xs space-y-1">
+                            <span class="text-emerald-400 font-bold uppercase tracking-wider text-[10px]">What to say to faculty:</span>
+                            <p class="text-slate-300">
+                                <em>"Standard online scripts fail when you pass a directory to OpenSSL because ciphers operate on byte streams, not filesystem hierarchies. Here, I use UNIX composition: <code class="text-emerald-400">tar -czf</code> serializes the folder structure into an archive, which is then encrypted atomically."</em>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snippet 2: Auto-Detection on Decryption -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+                    <div class="p-4 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+                        <span class="font-mono text-sm font-bold text-teal-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-teal-400"></span>
+                            Function: decrypt_vault() — Smart Auto-Detection
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">vault.sh lines 270-345</span>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <pre class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed"><code># Decrypt to a temporary file first
+printf "%s" "$password" | openssl enc -d -aes-256-cbc -salt -pbkdf2 -iter 100000 \
+    -in "$vault_file" -out "$temp_decrypted" -pass stdin 2>/dev/null
+
+# Test if the decrypted content is a compressed TAR archive (Directory)
+if tar -tzf "$temp_decrypted" &>/dev/null; then
+    msg_info "Detected encrypted DIRECTORY archive."
+    tar -xzf "$temp_decrypted" -C "$dest_parent"
+else
+    msg_info "Detected regular FILE payload."
+    mv "$temp_decrypted" "$restored_name"
+fi</code></pre>
+                        
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800/60 text-xs space-y-1">
+                            <span class="text-teal-400 font-bold uppercase tracking-wider text-[10px]">What to say to faculty:</span>
+                            <p class="text-slate-300">
+                                <em>"The user doesn't need to specify whether a <code class="text-teal-400">.vault</code> file was originally a directory or a single file. The script decrypts to a temporary staging area and tests the archive table of contents using <code class="text-teal-400">tar -tzf</code>. If it returns exit code 0, it knows it's a directory and unpacks it; otherwise, it restores it as a normal file."</em>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snippet 3: Password Masking & Confirmation -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+                    <div class="p-4 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+                        <span class="font-mono text-sm font-bold text-sky-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                            Function: prompt_password()
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">vault.sh lines 125-165</span>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <pre class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed"><code># Hidden password input prevents shoulder surfing
+echo -en "Enter encryption password: "
+read -r -s pass1
+echo ""
+
+# Confirmation check during encryption to prevent locking oneself out
+if [[ "$confirm_needed" == "true" ]]; then
+    echo -en "Confirm password: "
+    read -r -s pass2
+    echo ""
+    if [[ "$pass1" != "$pass2" ]]; then
+        msg_error "Passwords do not match."
+    fi
+fi</code></pre>
+                        
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800/60 text-xs space-y-1">
+                            <span class="text-sky-400 font-bold uppercase tracking-wider text-[10px]">What to say to faculty:</span>
+                            <p class="text-slate-300">
+                                <em>"I used the <code class="text-sky-400">-s</code> flag with <code class="text-sky-400">read</code> so characters do not echo to the terminal. In symmetric encryption, a single typo would make the file unrecoverable forever, which is why I enforce password confirmation."</em>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Interactive Terminal Simulator -->
+        <section id="terminal" class="space-y-8">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">05. Live Interactive Demo</span>
+                <h2 class="text-3xl font-extrabold text-white">Interactive Terminal Simulator</h2>
+                <p class="text-slate-400 text-sm mt-1">Click any command below to simulate how SecureVault executes in a Linux terminal environment.</p>
+            </div>
+
+            <!-- Terminal Window -->
+            <div class="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden shadow-2xl code-glow">
+                <!-- Terminal Header Bar -->
+                <div class="bg-slate-900 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                        <span class="ml-2 font-mono text-xs text-slate-400">student@linux-vm: ~/jawad_linux</span>
+                    </div>
+                    <span class="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Bash 5.2 • Active</span>
+                </div>
+
+                <!-- Command Quick Buttons -->
+                <div class="p-3 bg-slate-900/50 border-b border-slate-800 flex flex-wrap gap-2 text-xs font-mono">
+                    <span class="text-slate-400 self-center text-[11px] mr-1">DEMO CLICKS:</span>
+                    <button onclick="runSim('help')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">./vault.sh -h</button>
+                    <button onclick="runSim('test')" class="px-2.5 py-1 rounded bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-700/50 transition">./vault.sh -t (Self-Test)</button>
+                    <button onclick="runSim('encrypt_file')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">Encrypt File</button>
+                    <button onclick="runSim('encrypt_dir')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">Encrypt Directory</button>
+                    <button onclick="runSim('wrong_pass')" class="px-2.5 py-1 rounded bg-red-950 hover:bg-red-900 text-red-300 border border-red-800/50 transition">Tamper / Wrong Pass</button>
+                    <button onclick="runSim('audit')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">./vault.sh -l (Audit Log)</button>
+                </div>
+
+                <!-- Terminal Body -->
+                <div id="termBody" class="p-5 font-mono text-xs text-slate-300 min-h-[360px] max-h-[500px] overflow-y-auto space-y-3 leading-relaxed">
+                    <p class="text-slate-500">SecureVault Interactive Terminal Shell initialized.</p>
+                    <p class="text-slate-400">Select any command button above to execute simulation, or click "Self-Test" to run the full verification suite.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Viva Voce Defense Prep (Q&A) -->
+        <section id="viva" class="space-y-8">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">06. Viva Voce Masterclass</span>
+                <h2 class="text-3xl font-extrabold text-white">Top 10 Faculty Viva Questions & Answers</h2>
+                <p class="text-slate-400 text-sm mt-1">Memorize these concise, accurate answers before your lab examination or project presentation.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Q1 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold shrink-0">Q1</span>
+                        <h4 class="font-bold text-white text-sm">Why did you use OpenSSL instead of writing encryption directly in Bash?</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed pl-7">
+                        <strong>Answer:</strong> Bash is an operating system command orchestration language (glue language), not designed for low-level bitwise manipulation. Writing cryptographic ciphers directly in shell would be insecure, susceptible to timing attacks, and orders of magnitude slower. Using OpenSSL leverages audited, hardware-accelerated (AES-NI) C libraries following the Unix philosophy: using the right tool for the job.
+                    </p>
+                </div>
+
+                <!-- Q2 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold shrink-0">Q2</span>
+                        <h4 class="font-bold text-white text-sm">What is PBKDF2 and why did you specify 100,000 iterations?</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed pl-7">
+                        <strong>Answer:</strong> Passwords entered by humans have low entropy. PBKDF2 (Password-Based Key Derivation Function 2) runs HMAC-SHA256 in a loop 100,000 times combined with a random cryptographic salt. This deliberate computational cost makes offline dictionary and brute-force GPU attacks computationally prohibitive without noticeably slowing down legitimate users.
+                    </p>
+                </div>
+
+                <!-- Q3 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold shrink-0">Q3</span>
+                        <h4 class="font-bold text-white text-sm">Why is CBC mode preferred over ECB mode in AES?</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed pl-7">
+                        <strong>Answer:</strong> In ECB (Electronic Codebook) mode, identical 16-byte plaintext blocks produce identical ciphertext blocks, leaking structural patterns (like the infamous ECB Penguin). CBC (Cipher Block Chaining) XORs each plaintext block with the previous ciphertext block (using a random IV for the first block), ensuring completely randomized ciphertext even for repeated patterns.
+                    </p>
+                </div>
+
+                <!-- Q4 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold shrink-0">Q4</span>
+                        <h4 class="font-bold text-white text-sm">How does the script know whether a .vault file is a directory or a file?</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed pl-7">
+                        <strong>Answer:</strong> On decryption, the payload is initially extracted to a temporary file. The script then executes <code class="text-emerald-400 font-mono">tar -tzf $temp_decrypted</code>. If <code class="text-emerald-400 font-mono">tar</code> successfully reads a gzip-compressed archive header (exit code 0), the script knows it is an archived folder and unpacks it. If it fails (exit code non-zero), it treats it as a standard file.
+                    </p>
+                </div>
+
+                <!-- Q5 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold shrink-0">Q5</span>
+                        <h4 class="font-bold text-white text-sm">Why pass the password via stdin instead of <code class="text-emerald-400 font-mono">-pass pass:$password</code>?</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed pl-7">
+                        <strong>Answer:</strong> When arguments are passed on the CLI, any other logged-in user on a shared Linux machine can see them in plaintext by inspecting the process table with <code class="text-emerald-400 font-mono">ps aux</code> or reading <code class="text-emerald-400 font-mono">/proc/[pid]/cmdline</code>. By streaming the password directly through <code class="text-emerald-400 font-mono">stdin</code> using a pipe, the secret never touches the process arguments.
+                    </p>
+                </div>
+
+                <!-- Q6 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold shrink-0">Q6</span>
+                        <h4 class="font-bold text-white text-sm">What does the <code class="text-emerald-400 font-mono">trap</code> command accomplish in your script?</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed pl-7">
+                        <strong>Answer:</strong> <code class="text-emerald-400 font-mono">trap cleanup EXIT INT TERM</code> registers an asynchronous signal handler. If the script is abruptly killed or the user presses <kbd class="px-1 py-0.5 bg-slate-800 rounded">Ctrl+C</kbd> while an unencrypted temporary archive exists, the <code class="text-emerald-400 font-mono">cleanup()</code> function runs automatically, overwriting temporary files with random bytes from <code class="text-emerald-400 font-mono">/dev/urandom</code> and removing them.
+                    </p>
+                </div>
+
+                <!-- Q7 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold shrink-0">Q7</span>
+                        <h4 class="font-bold text-white text-sm">What is the purpose of <code class="text-emerald-400 font-mono">set -o pipefail</code> at line 14?</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed pl-7">
+                        <strong>Answer:</strong> By default in Bash, the exit status of a pipeline (e.g. <code class="text-emerald-400 font-mono">cmd1 | cmd2</code>) is determined solely by the last command (<code class="text-emerald-400 font-mono">cmd2</code>). If <code class="text-emerald-400 font-mono">cmd1</code> fails, the script might still report success! Setting <code class="text-emerald-400 font-mono">pipefail</code> ensures that if any command in a pipe fails, the overall pipeline returns a non-zero exit code.
+                    </p>
+                </div>
+
+                <!-- Q8 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold shrink-0">Q8</span>
+                        <h4 class="font-bold text-white text-sm">How does SecureVault prevent accidental data overwrite?</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed pl-7">
+                        <strong>Answer:</strong> Before writing any output file (either during encryption or decryption), the script performs an existence test (<code class="text-emerald-400 font-mono">[[ -f "$outfile" ]]</code> or <code class="text-emerald-400 font-mono">[[ -d "$restored_name" ]]</code>). If the target exists, it prompts the user with an explicit confirmation dialog or automatically timestamps an alternate destination.
+                    </p>
+                </div>
+
+                <!-- Q9 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold shrink-0">Q9</span>
+                        <h4 class="font-bold text-white text-sm">What does the secure shred option do?</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed pl-7">
+                        <strong>Answer:</strong> Standard deletion via <code class="text-emerald-400 font-mono">rm</code> only unlinks the file inode from the directory table; the actual data blocks remain on disk until overwritten. SecureVault uses <code class="text-emerald-400 font-mono">shred -u -z -n 3</code> (or <code class="text-emerald-400 font-mono">dd if=/dev/urandom</code> as a portable fallback) to overwrite the physical disk blocks with random noise before unlinking.
+                    </p>
+                </div>
+
+                <!-- Q10 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold shrink-0">Q10</span>
+                        <h4 class="font-bold text-white text-sm">Why did you use getopts alongside the interactive menu?</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed pl-7">
+                        <strong>Answer:</strong> Providing both models makes the tool flexible: interactive menu mode is accessible for casual users, while command-line options (<code class="text-emerald-400 font-mono">-e, -d, -v, -l, -t</code> parsed cleanly with POSIX <code class="text-emerald-400 font-mono">getopts</code>) allow the script to be integrated into automated backup crontabs or CI/CD pipelines.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Live Presentation Script -->
+        <section id="demo-guide" class="space-y-8">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">07. Step-by-Step Presentation Script</span>
+                <h2 class="text-3xl font-extrabold text-white">How to Deliver a 5-Minute Faculty Presentation</h2>
+            </div>
+
+            <div class="p-8 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-6">
+                <div class="flex items-center gap-4 text-sm font-semibold text-emerald-400 border-b border-slate-800 pb-4">
+                    <span>Target Time: 4 - 5 Minutes</span>
+                    <span>•</span>
+                    <span>Confidence Score: 10/10</span>
+                </div>
+
+                <ol class="space-y-6 text-sm text-slate-300">
+                    <li class="flex items-start gap-4">
+                        <span class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-xs shrink-0">1</span>
+                        <div>
+                            <strong class="text-white block text-base mb-1">Introduce the Problem & Motivation (45 seconds)</strong>
+                            <p class="text-slate-400 text-xs">
+                                <em>"Good morning professors. My project is SecureVault, an enterprise-grade file and directory encryption suite written in Bash. While basic encryption tutorials exist online, they are insecure: they expose passwords in the process table, fail completely on folders, lack signal trapping, and provide no integrity checks. SecureVault solves all of these."</em>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="flex items-start gap-4">
+                        <span class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-xs shrink-0">2</span>
+                        <div>
+                            <strong class="text-white block text-base mb-1">Run the Automated Test Suite (30 seconds)</strong>
+                            <p class="text-slate-400 text-xs mb-2">Show them that your code has automated testing:</p>
+                            <code class="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 font-mono text-emerald-400 text-xs inline-block">./vault.sh -t</code>
+                            <p class="text-slate-400 text-xs mt-2">
+                                <em>"As you can see, the automated self-test tests file encryption, SHA-256 round-trip verification, wrong password rejection, and directory preservation in seconds."</em>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="flex items-start gap-4">
+                        <span class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-xs shrink-0">3</span>
+                        <div>
+                            <strong class="text-white block text-base mb-1">Live Interactive Demo (1.5 minutes)</strong>
+                            <p class="text-slate-400 text-xs mb-2">Run the interactive menu and encrypt a file and directory:</p>
+                            <code class="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 font-mono text-emerald-400 text-xs inline-block">./vault.sh</code>
+                            <p class="text-slate-400 text-xs mt-2">
+                                <em>"I'll encrypt <code class="text-emerald-300">demo_data/classified_report.txt</code>. Notice that passwords are masked using <code class="text-emerald-300">read -s</code> and confirmed. If we inspect the resulting <code class="text-emerald-300">.vault</code> file with <code class="text-emerald-300">cat</code>, it is high-entropy encrypted ciphertext."</em>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="flex items-start gap-4">
+                        <span class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-xs shrink-0">4</span>
+                        <div>
+                            <strong class="text-white block text-base mb-1">Demonstrate Directory Auto-Detection (1 minute)</strong>
+                            <p class="text-slate-400 text-xs">
+                                <em>"Now let's decrypt <code class="text-emerald-300">demo_data/research_project.vault</code>. The script automatically identifies that this vault contains a directory structure, unzips the payload, and recreates the nested folders with all permissions intact."</em>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="flex items-start gap-4">
+                        <span class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-xs shrink-0">5</span>
+                        <div>
+                            <strong class="text-white block text-base mb-1">Show Audit Logging & Conclude (45 seconds)</strong>
+                            <p class="text-slate-400 text-xs mb-2">Display the audit log:</p>
+                            <code class="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 font-mono text-emerald-400 text-xs inline-block">./vault.sh -l</code>
+                            <p class="text-slate-400 text-xs mt-2">
+                                <em>"Every action is recorded in <code class="text-emerald-300">vault_audit.log</code> with timestamp, acting user, target file, and cryptographic checksums, satisfying forensic accountability standards. Thank you, I am ready for your questions!"</em>
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-12 bg-slate-950 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-medium text-slate-400">SecureVault — University Operating Systems Shell Scripting Project</p>
+            <p>Designed and generated for student presentation, defense, and laboratory evaluation.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Terminal Simulator JavaScript -->
+    <script>
+        const terminalOutput = {
+            help: `
+<span class="text-emerald-400">$ ./vault.sh -h</span>
+
+  ____                            __     __            _ _   
+ / ___|  ___  ___ _   _ _ __ ___  \\ \\   / /_ _ _   _ _| | |_ 
+ \\___ \\ / _ \\/ __| | | | '__/ _ \\  \\ \\ / / _\` | | | | | | __|
+  ___) |  __/ (__| |_| | | |  __/   \\ V / (_| | |_| | | | |_ 
+ |____/ \\___|\\___|\\__,_|_|  \\___|    \\_/ \\__,_|\\__,_|_|_|\\__|
+  <span class="text-white font-bold">File & Directory Encryption Suite (AES-256-CBC + PBKDF2)</span>
+  <span class="text-sky-400">Version: 1.2.0 | University Shell Scripting Project</span>
+----------------------------------------------------------------------
+<span class="text-white font-bold">USAGE:</span>
+  vault.sh [OPTIONS] [TARGET]
+
+<span class="text-white font-bold">OPTIONS:</span>
+  -e &lt;path&gt;    Encrypt a file or directory
+  -d &lt;vault&gt;   Decrypt a .vault package (auto-detects file or directory)
+  -v &lt;path&gt;    Verify SHA-256 checksum against audit log
+  -l           Display operation audit logs
+  -t           Run automated self-tests and validation
+  -h           Show this help message
+`,
+            test: `
+<span class="text-emerald-400">$ ./vault.sh -t</span>
+
+<span class="text-white font-bold">=== RUNNING AUTOMATED SELF-TEST SUITE ===</span>
+1. Testing File Encryption...
+<span class="text-emerald-400">[SUCCESS] File encrypted successfully.</span>
+2. Testing File Decryption...
+<span class="text-emerald-400">[SUCCESS] Decrypted content matches original hash: [PASS]</span>
+3. Testing Wrong Password Rejection...
+<span class="text-emerald-400">[SUCCESS] Wrong password rejected properly: [PASS]</span>
+4. Testing Directory Archive & Encryption...
+<span class="text-emerald-400">[SUCCESS] Directory structure preserved & restored: [PASS]</span>
+
+<span class="text-emerald-400 font-bold">ALL 4 SELF-TEST SUITES PASSED FLAWLESSLY!</span>
+`,
+            encrypt_file: `
+<span class="text-emerald-400">$ ./vault.sh -e demo_data/classified_report.txt</span>
+Enter encryption password: <span class="text-slate-500">******</span>
+Confirm password: <span class="text-slate-500">******</span>
+<span class="text-sky-400">[INFO]</span> Computing SHA-256 checksum of original file...
+  <span class="text-teal-400">SHA-256:</span> 05beda7540b7585a12704c1d5f6b15586166c1954e2a9c4a7c01d09062227f4d
+<span class="text-sky-400">[INFO]</span> Encrypting using AES-256-CBC with PBKDF2 (100,000 iterations)...
+<span class="text-emerald-400">[SUCCESS]</span> Encryption successful!
+  <span class="text-emerald-300">Encrypted file:</span> demo_data/classified_report.txt.vault
+  <span class="text-teal-400">Vault Checksum:</span> 890048ea62a5ae4c5c2d1b68d4f143fcac723e81470621d35ca6585e448c4d2d
+
+<span class="text-yellow-400">[SECURITY OPTION]</span> Do you want to securely remove unencrypted original? (y/N): n
+<span class="text-sky-400">[INFO]</span> Original file retained at user request.
+`,
+            encrypt_dir: `
+<span class="text-emerald-400">$ ./vault.sh -e demo_data/research_project</span>
+Enter encryption password: <span class="text-slate-500">********</span>
+Confirm password: <span class="text-slate-500">********</span>
+<span class="text-sky-400">[INFO]</span> Archiving directory into compressed package...
+<span class="text-sky-400">[INFO]</span> Encrypting archive using AES-256-CBC...
+<span class="text-emerald-400">[SUCCESS]</span> Directory encrypted successfully!
+  <span class="text-emerald-300">Encrypted Vault:</span> demo_data/research_project.vault
+  <span class="text-teal-400">Archive SHA-256:</span> 47361cd5496deceaf36d349672b72f240cb7ca3fa8bcf06afb11719e6bff1440
+
+<span class="text-yellow-400">[SECURITY OPTION]</span> Do you want to securely remove unencrypted original? (y/N): n
+<span class="text-sky-400">[INFO]</span> Original file retained at user request.
+`,
+            wrong_pass: `
+<span class="text-emerald-400">$ ./vault.sh -d demo_data/classified_report.txt.vault</span>
+Enter encryption password: <span class="text-slate-500">****</span> <span class="text-red-400">(Typed deliberate incorrect password)</span>
+<span class="text-sky-400">[INFO]</span> Attempting decryption with OpenSSL...
+<span class="text-red-400 font-bold">[ERROR] Decryption failed! Incorrect password or corrupted file.</span>
+<span class="text-slate-500">Audit entry recorded: [DECRYPT] [FAILED] [Invalid password / Bad decrypt]</span>
+`,
+            audit: `
+<span class="text-emerald-400">$ ./vault.sh -l</span>
+<span class="text-white font-bold">=== SECUREVAULT AUDIT HISTORY ===</span>
+<span class="text-teal-400">File: vault_audit.log</span>
+----------------------------------------------------------------------
+[2026-11-14 14:26:38] [User: student] [Action: ENCRYPT_FILE] [Target: demo_data/classified_report.txt] [Status: SUCCESS] - Vault: demo_data/classified_report.txt.vault | OrigSHA: 05beda7540b7585a...
+[2026-11-14 14:26:51] [User: student] [Action: ENCRYPT_DIR] [Target: demo_data/research_project] [Status: SUCCESS] - Vault: demo_data/research_project.vault | ArchiveSHA: 47361cd5496decea...
+[2026-11-14 14:26:56] [User: student] [Action: DECRYPT_FILE] [Target: demo_data/classified_report.txt.vault] [Status: SUCCESS] - Restored: demo_data/classified_report.txt
+----------------------------------------------------------------------
+<span class="text-sky-400">[INFO] Displaying the latest 25 log entries.</span>
+`
+        };
+
+        function runSim(cmdKey) {
+            const body = document.getElementById('termBody');
+            body.innerHTML = `
+                <div class="animate-pulse text-emerald-400">Executing ${cmdKey}...</div>
+            `;
+            setTimeout(() => {
+                body.innerHTML = terminalOutput[cmdKey] || `<span class="text-red-400">Command not found.</span>`;
+                body.scrollTop = body.scrollHeight;
+            }, 250);
+        }
+    </script>
+</body>
+</html>
+

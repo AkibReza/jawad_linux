@@ -1,0 +1,4 @@
+[2026-11-14 14:26:38] [User: desktop-00l518c\akib] [Action: ENCRYPT_FILE] [Target: demo_data/classified_report.txt] [Status: SUCCESS] - Vault: demo_data/classified_report.txt.vault | OrigSHA: 05beda7540b7585a12704c1d5f6b15586166c1954e2a9c4a7c01d09062227f4d
+[2026-11-14 14:26:51] [User: desktop-00l518c\akib] [Action: ENCRYPT_DIR] [Target: demo_data/research_project] [Status: SUCCESS] - Vault: demo_data/research_project.vault | ArchiveSHA: 47361cd5496deceaf36d349672b72f240cb7ca3fa8bcf06afb11719e6bff1440
+[2026-11-14 14:26:56] [User: desktop-00l518c\akib] [Action: DECRYPT_FILE] [Target: demo_data/classified_report.txt.vault] [Status: SUCCESS] - Restored: demo_data/classified_report.txt | SHA: 05beda7540b7585a12704c1d5f6b15586166c1954e2a9c4a7c01d09062227f4d
+[2026-11-14 14:27:01] [User: desktop-00l518c\akib] [Action: DECRYPT_DIR] [Target: demo_data/research_project.vault] [Status: SUCCESS] - Extracted to demo_data/research_project
