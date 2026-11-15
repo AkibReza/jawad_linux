@@ -4,3 +4,14 @@
 [2026-11-14 14:27:01] [User: desktop-00l518c\akib] [Action: DECRYPT_DIR] [Target: demo_data/research_project.vault] [Status: SUCCESS] - Extracted to demo_data/research_project
 [2026-11-14 16:54:11] [User: desktop-00l518c\akib] [Action: ENCRYPT_FILE] [Target: demo_data/classified_report.txt] [Status: SUCCESS] - Vault: demo_data/classified_report.txt.vault | OrigSHA: d48f0bdde1c8165d973e1be756c98c4adc6c334589461e187c9bfcfc79410c22
 [2026-11-14 17:48:11] [User: desktop-00l518c\akib] [Action: ENCRYPT_FILE] [Target: demo_data/classified_report.txt] [Status: SUCCESS] - Vault: demo_data/classified_report.txt.vault | OrigSHA: d48f0bdde1c8165d973e1be756c98c4adc6c334589461e187c9bfcfc79410c22
+[2026-11-14 19:18:00] [User: desktop-00l518c\akib] [Action: ENCRYPT_FILE] [Target: document.txt] [Status: SUCCESS] - Vault: document.txt.vault | OrigSHA: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+[2026-11-14 19:19:09] [User: desktop-00l518c\akib] [Action: DECRYPT_DIR] [Target: document.txt.vault] [Status: SUCCESS] - Extracted to document.txt
+[2026-11-14 19:20:47] [User: desktop-00l518c\akib] [Action: DECRYPT_DIR] [Target: document.txt.vault] [Status: SUCCESS] - Extracted to document.txt
+[2026-11-14 19:21:09] [User: desktop-00l518c\akib] [Action: DECRYPT_DIR] [Target: document.txt.vault] [Status: SUCCESS] - Extracted to document.txt
+[2026-11-14 19:28:50] [User: desktop-00l518c\akib] [Action: ENCRYPT_FILE] [Target: /tmp/empty_doc.txt] [Status: SUCCESS] - Vault: /tmp/empty_doc.txt.vault | OrigSHA: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+[2026-11-14 19:28:51] [User: desktop-00l518c\akib] [Action: DECRYPT_FILE] [Target: /tmp/empty_doc.txt.vault] [Status: SUCCESS] - Restored: /tmp/empty_doc.txt.restored_1794702531 | SHA: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+[2026-11-14 19:31:42] [User: desktop-00l518c\akib] [Action: DECRYPT_DIR] [Target: document.txt.vault] [Status: SUCCESS] - Extracted to document.txt
+[2026-11-14 19:34:10] [User: desktop-00l518c\akib] [Action: ENCRYPT_FILE] [Target: jawadu.txt] [Status: SUCCESS] - Vault: jawadu.txt.vault | OrigSHA: fba1c6178d70e8133e1717f701f7f469d01cdb90d77e39ab63e348d3c7d44c4f
+[2026-11-14 19:34:34] [User: desktop-00l518c\akib] [Action: DECRYPT_FILE] [Target: jawadu.txt.vault] [Status: SUCCESS] - Restored: jawadu.txt | SHA: fba1c6178d70e8133e1717f701f7f469d01cdb90d77e39ab63e348d3c7d44c4f
+[2026-11-14 19:35:40] [User: desktop-00l518c\akib] [Action: ENCRYPT_DIR] [Target: JAWAD_ER_NUDES] [Status: SUCCESS] - Vault: JAWAD_ER_NUDES.vault | ArchiveSHA: 9b3efe5d4366759321dfde4cac127526f5a1c7229aad51c26fd856289de90b9a
+[2026-11-14 19:36:05] [User: desktop-00l518c\akib] [Action: DECRYPT_DIR] [Target: JAWAD_ER_NUDES.vault] [Status: SUCCESS] - Extracted to JAWAD_ER_NUDES

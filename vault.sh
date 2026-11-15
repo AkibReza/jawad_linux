@@ -397,7 +397,8 @@ decrypt_vault() {
     fi
 
     # Check if decrypted stream is a compressed TAR archive (Directory detection)
-    if tar -tzf "$temp_decrypted" &>/dev/null; then
+    # Note: Must be non-empty and list entries; GNU tar returns 0 on empty (0-byte) files.
+    if [[ -s "$temp_decrypted" ]] && [[ -n "$(tar -tzf "$temp_decrypted" 2>/dev/null)" ]]; then
         msg_info "Detected encrypted DIRECTORY archive."
         
         # Check if destination directory already exists
