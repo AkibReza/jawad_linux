@@ -71,13 +71,16 @@
                     <p class="text-xs text-slate-400 hidden sm:block">Linux Shell Scripting Project • University Defense Guide</p>
                 </div>
             </div>
-            <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+            <div class="hidden md:flex items-center gap-5 text-sm font-medium">
                 <a href="#overview" class="text-slate-300 hover:text-emerald-400 transition">Overview</a>
-                <a href="#comparison" class="text-slate-300 hover:text-emerald-400 transition">Why It's Better</a>
+                <a href="#comparison" class="text-slate-300 hover:text-emerald-400 transition">Why Better</a>
                 <a href="#architecture" class="text-slate-300 hover:text-emerald-400 transition">Architecture</a>
-                <a href="#code-walkthrough" class="text-slate-300 hover:text-emerald-400 transition">Code Walkthrough</a>
+                <a href="#cli-tutorial" class="text-emerald-400 font-semibold hover:text-emerald-300 transition flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Step-by-Step CLI Guide
+                </a>
                 <a href="#viva" class="text-slate-300 hover:text-emerald-400 transition">Viva Q&A</a>
-                <a href="#terminal" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition shadow-sm">Live Simulator</a>
+                <a href="#terminal" class="px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition shadow-sm text-xs">Live Simulator</a>
             </div>
         </div>
     </nav>
@@ -442,10 +445,537 @@ fi</code></pre>
             </div>
         </section>
 
+        <!-- Section: How to Run in Windows & Linux -->
+        <section id="how-to-run" class="space-y-8">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">04b. Execution Guide</span>
+                <h2 class="text-3xl font-extrabold text-white">How To Run (Windows 10 & Linux)</h2>
+                <p class="text-slate-400 text-sm mt-1">Ready-to-use commands for PowerShell, CMD, Linux, macOS, and WSL.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Windows PowerShell Card -->
+                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center text-xs font-mono font-bold">WIN</span>
+                            Windows 10 PowerShell / CMD
+                        </h3>
+                        <span class="text-xs font-mono text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded">No Linux install needed!</span>
+                    </div>
+                    <p class="text-xs text-slate-300">
+                        In Windows PowerShell, simply use the created batch launchers or call with <code class="text-sky-400 font-mono">bash</code>:
+                    </p>
+                    <div class="space-y-2 font-mono text-xs">
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+                            <span class="text-slate-500"># 1. Run interactive menu:</span><br>
+                            <span class="text-emerald-400">.\vault.bat</span> <span class="text-slate-500">(or double-click run_menu.bat!)</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+                            <span class="text-slate-500"># 2. Run automated test suite:</span><br>
+                            <span class="text-emerald-400">.\test_vault.bat</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+                            <span class="text-slate-500"># 3. Encrypt sample file:</span><br>
+                            <span class="text-emerald-400">.\vault.bat -e demo_data/classified_report.txt</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Linux / macOS / WSL Card -->
+                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-mono font-bold">NIX</span>
+                            Linux / macOS / WSL / Git Bash
+                        </h3>
+                        <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Pure Bash</span>
+                    </div>
+                    <p class="text-xs text-slate-300">
+                        Execute the POSIX shell script directly:
+                    </p>
+                    <div class="space-y-2 font-mono text-xs">
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+                            <span class="text-slate-500"># 1. Run interactive menu:</span><br>
+                            <span class="text-emerald-400">./vault.sh</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+                            <span class="text-slate-500"># 2. Run automated verification suite:</span><br>
+                            <span class="text-emerald-400">./test_vault.sh</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+                            <span class="text-slate-500"># 3. Encrypt sample file:</span><br>
+                            <span class="text-emerald-400">./vault.sh -e demo_data/classified_report.txt</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Select Files Callout -->
+            <div class="p-5 rounded-2xl bg-slate-900/50 border border-slate-800 space-y-3">
+                <h4 class="font-bold text-white text-sm flex items-center gap-2">
+                    <span class="text-emerald-400">📁</span> How to Select Which File / Folder to Encrypt:
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-300">
+                    <div class="p-3 rounded-xl bg-slate-950 border border-slate-800/80">
+                        <strong class="text-emerald-400 block mb-1">Option A: Drag & Drop</strong>
+                        Drag any file or folder from Windows File Explorer and drop it directly onto the PowerShell terminal.
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-950 border border-slate-800/80">
+                        <strong class="text-teal-400 block mb-1">Option B: Use Built-in Samples</strong>
+                        In the menu, type <code class="text-teal-300 font-mono">sample</code> to automatically encrypt the included demo files.
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-950 border border-slate-800/80">
+                        <strong class="text-sky-400 block mb-1">Option C: Type or List Path</strong>
+                        Type relative or absolute path (e.g. <code class="text-sky-300 font-mono">demo_data/classified_report.txt</code>) or type <code class="text-sky-300 font-mono">list</code>.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: CLI Master Tutorial: Everything via Commands (Zero GUI) -->
+        <section id="cli-tutorial" class="space-y-10">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">05. Complete Hands-on CLI Tutorial</span>
+                <h2 class="text-3xl font-extrabold text-white">Pure Terminal Mastery: Step-by-Step Dual-OS Guide</h2>
+                <p class="text-slate-400 text-sm mt-1">
+                    <strong>Zero GUI Policy:</strong> No mouse right-clicks or file explorer windows. In university exams and Linux labs, faculty evaluate command-line fluency. Here is every exact command needed for both 🐧 Linux and 🪟 Windows PowerShell side-by-side.
+                </p>
+            </div>
+
+            <!-- Terminal Rule Alert -->
+            <div class="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 font-bold text-lg">
+                    ⚠️
+                </div>
+                <div class="space-y-1 text-xs text-slate-300">
+                    <h4 class="font-bold text-amber-300 text-sm">Faculty Evaluation Golden Rule: Never Use Right-Click GUI</h4>
+                    <p>
+                        In your OS viva or lab demo, creating files or folders with Windows Explorer right-click will cost you marks. Operating Systems faculty expect you to create, inspect, write, delete, and secure data exclusively using shell utilities (<code class="text-amber-300 font-mono">touch</code>, <code class="text-amber-300 font-mono">echo</code>, <code class="text-amber-300 font-mono">cat</code>, <code class="text-amber-300 font-mono">mkdir</code>, <code class="text-amber-300 font-mono">rm</code>, <code class="text-amber-300 font-mono">chmod</code>).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Part 1: Quick Reference Equivalents Table -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-mono font-bold">A</span>
+                        Essential Terminal Commands: Linux vs. Windows Equivalents
+                    </h3>
+                    <span class="text-xs text-slate-400 font-mono">Universal File Operations</span>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/40">
+                    <table class="w-full text-left text-xs font-mono">
+                        <thead class="bg-slate-900/90 uppercase tracking-wider text-slate-400 border-b border-slate-800 text-[11px]">
+                            <tr>
+                                <th class="py-3 px-5 font-sans font-semibold">Action Description</th>
+                                <th class="py-3 px-5 text-emerald-400">🐧 Linux (Bash Terminal)</th>
+                                <th class="py-3 px-5 text-sky-400">🪟 Windows (PowerShell)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                            <tr class="hover:bg-slate-800/20 transition">
+                                <td class="py-3 px-5 font-sans font-semibold text-white">Create empty file</td>
+                                <td class="py-3 px-5 text-emerald-300">touch document.txt</td>
+                                <td class="py-3 px-5 text-sky-300">New-Item document.txt</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/20 transition">
+                                <td class="py-3 px-5 font-sans font-semibold text-white">Create file with text content</td>
+                                <td class="py-3 px-5 text-emerald-300">echo "Secret Data" &gt; secret.txt</td>
+                                <td class="py-3 px-5 text-sky-300">echo "Secret Data" &gt; secret.txt</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/20 transition">
+                                <td class="py-3 px-5 font-sans font-semibold text-white">Append new line to file</td>
+                                <td class="py-3 px-5 text-emerald-300">echo "More Data" &gt;&gt; secret.txt</td>
+                                <td class="py-3 px-5 text-sky-300">echo "More Data" &gt;&gt; secret.txt</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/20 transition">
+                                <td class="py-3 px-5 font-sans font-semibold text-white">View / Read file content</td>
+                                <td class="py-3 px-5 text-emerald-300">cat secret.txt</td>
+                                <td class="py-3 px-5 text-sky-300">cat secret.txt <span class="text-slate-500 font-sans">(or Get-Content)</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/20 transition">
+                                <td class="py-3 px-5 font-sans font-semibold text-white">Create a directory</td>
+                                <td class="py-3 px-5 text-emerald-300">mkdir confidential_lab</td>
+                                <td class="py-3 px-5 text-sky-300">mkdir confidential_lab</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/20 transition">
+                                <td class="py-3 px-5 font-sans font-semibold text-white">Create nested directory tree</td>
+                                <td class="py-3 px-5 text-emerald-300">mkdir -p project/src/utils</td>
+                                <td class="py-3 px-5 text-sky-300">mkdir project/src/utils</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/20 transition">
+                                <td class="py-3 px-5 font-sans font-semibold text-white">List files in directory</td>
+                                <td class="py-3 px-5 text-emerald-300">ls -la</td>
+                                <td class="py-3 px-5 text-sky-300">ls <span class="text-slate-500 font-sans">(or dir)</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/20 transition">
+                                <td class="py-3 px-5 font-sans font-semibold text-white">Delete a single file</td>
+                                <td class="py-3 px-5 text-emerald-300">rm secret.txt</td>
+                                <td class="py-3 px-5 text-sky-300">rm secret.txt</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/20 transition">
+                                <td class="py-3 px-5 font-sans font-semibold text-white">Delete a folder & contents</td>
+                                <td class="py-3 px-5 text-emerald-300">rm -rf confidential_lab</td>
+                                <td class="py-3 px-5 text-sky-300">rm -r -fo confidential_lab</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/20 transition">
+                                <td class="py-3 px-5 font-sans font-semibold text-white">Make script executable</td>
+                                <td class="py-3 px-5 text-emerald-300">chmod +x vault.sh</td>
+                                <td class="py-3 px-5 text-sky-300"><span class="text-slate-500 font-sans">Run batch launcher:</span> .\vault.bat</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Part 2: Feature-by-Feature Guided Hands-on Exercises -->
+            <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-mono font-bold">B</span>
+                        Hands-On Exercises: Step-by-Step Command Walkthrough
+                    </h3>
+                    <span class="text-xs text-slate-400 font-mono">10 Complete Labs</span>
+                </div>
+
+                <!-- Exercise 1 -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs">EXERCISE 1</span>
+                            Check System Dependencies via Terminal
+                        </h4>
+                        <span class="text-xs text-slate-400 font-sans">Verifying tools exist</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Before running encryption, verify that OpenSSL, Tar, and Bash are installed:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-emerald-400 flex items-center gap-1.5">
+                                <span>🐧 Linux Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>openssl version
+tar --version | head -n 1
+sha256sum --version | head -n 1</code></pre>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-sky-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-sky-400 flex items-center gap-1.5">
+                                <span>🪟 Windows PowerShell Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>bash -c "openssl version; tar --version; sha256sum --version"</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise 2 -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs">EXERCISE 2</span>
+                            Set File Execution Permissions (Linux Only)
+                        </h4>
+                        <span class="text-xs text-slate-400 font-sans">Granting +x bit</span>
+                    </div>
+                    <p class="text-xs text-slate-300">On Linux systems, freshly created scripts cannot run until given execute permission with <code class="text-emerald-400 font-mono">chmod +x</code>:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-emerald-400 flex items-center gap-1.5">
+                                <span>🐧 Linux Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>chmod +x vault.sh test_vault.sh
+ls -l vault.sh test_vault.sh</code></pre>
+                            <span class="text-[11px] text-slate-500 font-sans">Output will show -rwxr-xr-x in green.</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-sky-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-sky-400 flex items-center gap-1.5">
+                                <span>🪟 Windows PowerShell:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code># Windows does not use POSIX chmod.
+# Simply run the batch launcher:
+.\vault.bat -h</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise 3 -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs">EXERCISE 3</span>
+                            Create a Sensitive File via Terminal (No Right Click!)
+                        </h4>
+                        <span class="text-xs text-slate-400 font-sans">Using Stream Redirection</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Create a sample exam paper file using <code class="text-emerald-400 font-mono">echo</code> and stream redirection <code class="text-emerald-400 font-mono">&gt;</code>, then view it with <code class="text-emerald-400 font-mono">cat</code>:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-emerald-400 flex items-center gap-1.5">
+                                <span>🐧 Linux Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>echo "CONFIDENTIAL: Midterm Exam Paper Key 2026" &gt; exam_key.txt
+echo "Question 1 Answer: B" &gt;&gt; exam_key.txt
+cat exam_key.txt</code></pre>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-sky-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-sky-400 flex items-center gap-1.5">
+                                <span>🪟 Windows PowerShell Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>echo "CONFIDENTIAL: Midterm Exam Paper Key 2026" &gt; exam_key.txt
+echo "Question 1 Answer: B" &gt;&gt; exam_key.txt
+cat exam_key.txt</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise 4 -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs">EXERCISE 4</span>
+                            Encrypt the File via CLI
+                        </h4>
+                        <span class="text-xs text-slate-400 font-sans">AES-256-CBC + PBKDF2</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Run the encryption command. Enter a password (e.g. <code class="text-emerald-400 font-mono">Secret123!</code>), confirm it, and choose <kbd class="px-1 py-0.5 bg-slate-800 rounded font-mono text-[10px]">n</kbd> when asked to shred original:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-emerald-400 flex items-center gap-1.5">
+                                <span>🐧 Linux Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>./vault.sh -e exam_key.txt</code></pre>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-sky-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-sky-400 flex items-center gap-1.5">
+                                <span>🪟 Windows PowerShell Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>.\vault.bat -e exam_key.txt</code></pre>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-1">
+                        <span class="text-slate-400 font-sans font-bold">Inspect the Ciphertext to Prove It is Encrypted:</span>
+                        <pre class="text-emerald-400 overflow-x-auto"><code>cat exam_key.txt.vault</code></pre>
+                        <p class="text-slate-500 font-sans text-[11px]">Notice unreadable high-entropy binary bytes starting with 'Salted__'. The plaintext is completely hidden!</p>
+                    </div>
+                </div>
+
+                <!-- Exercise 5 -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs">EXERCISE 5</span>
+                            Simulate Real Recovery: Delete Original & Decrypt
+                        </h4>
+                        <span class="text-xs text-slate-400 font-sans">Proof of Decryption</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Delete the original unencrypted file using <code class="text-red-400 font-mono">rm</code>, then restore it from the encrypted <code class="text-emerald-400 font-mono">.vault</code> file:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-emerald-400 flex items-center gap-1.5">
+                                <span>🐧 Linux Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>rm exam_key.txt          # Delete original
+./vault.sh -d exam_key.txt.vault  # Decrypt
+cat exam_key.txt         # Confirm restored content!</code></pre>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-sky-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-sky-400 flex items-center gap-1.5">
+                                <span>🪟 Windows PowerShell Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>rm exam_key.txt          # Delete original
+.\vault.bat -d exam_key.txt.vault  # Decrypt
+cat exam_key.txt         # Confirm restored content!</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise 6 -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs">EXERCISE 6</span>
+                            Create a Nested Directory Structure via Terminal
+                        </h4>
+                        <span class="text-xs text-slate-400 font-sans">Multi-level folders</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Create a nested project folder with subfolders and files without touching any GUI:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-emerald-400 flex items-center gap-1.5">
+                                <span>🐧 Linux Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>mkdir -p my_project/src my_project/data
+echo "print('Secure Computation v1.0')" &gt; my_project/src/app.py
+echo "student_id,score\n202601,98" &gt; my_project/data/scores.csv
+ls -R my_project</code></pre>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-sky-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-sky-400 flex items-center gap-1.5">
+                                <span>🪟 Windows PowerShell Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>mkdir my_project/src, my_project/data
+echo "print('Secure Computation v1.0')" &gt; my_project/src/app.py
+echo "student_id,score`n202601,98" &gt; my_project/data/scores.csv
+ls -R my_project</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise 7 -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs">EXERCISE 7</span>
+                            Encrypt & Decrypt the Entire Directory Tree
+                        </h4>
+                        <span class="text-xs text-slate-400 font-sans">Automatic tar+gzip bundling</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Encrypt the whole folder into a single <code class="text-emerald-400 font-mono">my_project.vault</code> file, delete original, and restore it with auto-unpacking:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-emerald-400 flex items-center gap-1.5">
+                                <span>🐧 Linux Commands:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code># Encrypt directory:
+./vault.sh -e my_project
+
+# Delete unencrypted directory to test restore:
+rm -rf my_project
+
+# Decrypt directory (auto-unpacks!):
+./vault.sh -d my_project.vault
+
+# Verify all subfiles restored:
+ls -R my_project</code></pre>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-sky-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-sky-400 flex items-center gap-1.5">
+                                <span>🪟 Windows PowerShell Commands:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code># Encrypt directory:
+.\vault.bat -e my_project
+
+# Delete unencrypted directory to test restore:
+rm -r -fo my_project
+
+# Decrypt directory (auto-unpacks!):
+.\vault.bat -d my_project.vault
+
+# Verify all subfiles restored:
+ls -R my_project</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise 8 -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                            <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 text-xs">EXERCISE 8</span>
+                            Security Negative Test: Wrong Password Rejection
+                        </h4>
+                        <span class="text-xs text-slate-400 font-sans">Tamper & Authentication Defense</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Faculty will ask: <em>"What happens if an unauthorized person tries to decrypt?"</em> Demonstrate this live:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-emerald-400 flex items-center gap-1.5">
+                                <span>🐧 Linux Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>./vault.sh -d exam_key.txt.vault
+# Enter wrong password: IncorrectPass999
+# OpenSSL cleanly rejects with non-zero exit code!</code></pre>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-sky-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-sky-400 flex items-center gap-1.5">
+                                <span>🪟 Windows PowerShell Command:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code>.\vault.bat -d exam_key.txt.vault
+# Enter wrong password: IncorrectPass999
+# OpenSSL cleanly rejects with non-zero exit code!</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise 9 -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs">EXERCISE 9</span>
+                            Verify SHA-256 Hashes and Inspect Audit Trail
+                        </h4>
+                        <span class="text-xs text-slate-400 font-sans">Integrity & Forensics</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Compute SHA-256 against audit history, and display the operation audit logs:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-emerald-400 flex items-center gap-1.5">
+                                <span>🐧 Linux Commands:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code># Verify integrity against log:
+./vault.sh -v exam_key.txt
+
+# View audit logs:
+./vault.sh -l
+# Or view raw file directly:
+cat vault_audit.log</code></pre>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-sky-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-sky-400 flex items-center gap-1.5">
+                                <span>🪟 Windows PowerShell Commands:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code># Verify integrity against log:
+.\vault.bat -v exam_key.txt
+
+# View audit logs:
+.\vault.bat -l
+# Or view raw file directly:
+cat vault_audit.log</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise 10 -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs">EXERCISE 10</span>
+                            Run Automated Test Suite & Launch Menu via CLI
+                        </h4>
+                        <span class="text-xs text-slate-400 font-sans">Automated Validation</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Run the 10-check automated verification suite, or launch the interactive terminal menu:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-emerald-400 flex items-center gap-1.5">
+                                <span>🐧 Linux Commands:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code># Run full verification test suite:
+./test_vault.sh
+
+# Launch interactive menu:
+./vault.sh</code></pre>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-950 border border-sky-900/30 space-y-2">
+                            <div class="text-[11px] font-sans font-bold text-sky-400 flex items-center gap-1.5">
+                                <span>🪟 Windows PowerShell Commands:</span>
+                            </div>
+                            <pre class="text-slate-200 overflow-x-auto"><code># Run full verification test suite:
+.\test_vault.bat
+
+# Launch interactive menu:
+.\vault.bat</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Section: Interactive Terminal Simulator -->
         <section id="terminal" class="space-y-8">
             <div class="border-l-4 border-emerald-500 pl-4">
-                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">05. Live Interactive Demo</span>
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">06. Live Interactive Demo</span>
                 <h2 class="text-3xl font-extrabold text-white">Interactive Terminal Simulator</h2>
                 <p class="text-slate-400 text-sm mt-1">Click any command below to simulate how SecureVault executes in a Linux terminal environment.</p>
             </div>
@@ -485,7 +1015,7 @@ fi</code></pre>
         <!-- Section: Viva Voce Defense Prep (Q&A) -->
         <section id="viva" class="space-y-8">
             <div class="border-l-4 border-emerald-500 pl-4">
-                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">06. Viva Voce Masterclass</span>
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">07. Viva Voce Masterclass</span>
                 <h2 class="text-3xl font-extrabold text-white">Top 10 Faculty Viva Questions & Answers</h2>
                 <p class="text-slate-400 text-sm mt-1">Memorize these concise, accurate answers before your lab examination or project presentation.</p>
             </div>
@@ -606,7 +1136,7 @@ fi</code></pre>
         <!-- Section: Live Presentation Script -->
         <section id="demo-guide" class="space-y-8">
             <div class="border-l-4 border-emerald-500 pl-4">
-                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">07. Step-by-Step Presentation Script</span>
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">08. Step-by-Step Presentation Script</span>
                 <h2 class="text-3xl font-extrabold text-white">How to Deliver a 5-Minute Faculty Presentation</h2>
             </div>
 

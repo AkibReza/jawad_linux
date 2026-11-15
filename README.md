@@ -41,8 +41,11 @@ While basic encryption scripts exist online, they are typically 10-line basic wr
 
 ```text
 jawad_linux/
-├── vault.sh                   # Main production shell script
+├── vault.sh                   # Main production shell script (Linux/WSL/Git Bash)
+├── vault.bat                  # Windows 10 PowerShell / CMD launcher
 ├── test_vault.sh              # Comprehensive automated verification suite
+├── test_vault.bat             # Windows 10 test launcher
+├── run_menu.bat               # Windows double-click interactive menu
 ├── index.html                 # Personal HTML + Tailwind documentation & viva defense guide
 ├── vault_audit.log            # Audit log recording operations & SHA-256 hashes
 ├── demo_data/                 # Sample files for faculty demonstration
@@ -68,57 +71,125 @@ SecureVault uses standard tools available out-of-the-box on almost all UNIX/Linu
 
 ## 💻 How to Run
 
-### 1. Interactive Menu Mode (Recommended for Live Demo)
-Simply run the script with no arguments:
-```bash
-./vault.sh
-```
-This presents a user-friendly, color-coded menu:
-```text
-  ____                            __     __            _ _   
- / ___|  ___  ___ _   _ _ __ ___  \ \   / /_ _ _   _ _| | |_ 
- \___ \ / _ \/ __| | | | '__/ _ \  \ \ / / _` | | | | | | __|
-  ___) |  __/ (__| |_| | | |  __/   \ V / (_| | |_| | | | |_ 
- |____/ \___|\___|\__,_|_|  \___|    \_/ \__,_|\__,_|_|_|\__|
-  File & Directory Encryption Suite (AES-256-CBC + PBKDF2)
-  Version: 1.2.0 | University Shell Scripting Project
-----------------------------------------------------------------------
-Select an operation:
-  [1] Encrypt a File
-  [2] Encrypt a Directory
-  [3] Decrypt a Vault (.vault package)
-  [4] Verify File / Directory Checksum (SHA-256)
-  [5] View Audit Logs
-  [6] Run Automated Self-Tests
-  [7] Exit
-```
+SecureVault runs natively on **Linux, macOS, WSL**, and directly in **Windows 10 PowerShell / Command Prompt**.
 
-### 2. Command-Line Options (CLI Mode)
-SecureVault also supports standard POSIX flags for scriptability and crontab automation:
+---
 
-```bash
-# Encrypt a single file:
-./vault.sh -e demo_data/classified_report.txt
+## 🖥️ Pure CLI Tutorial: Zero GUI / No Right-Clicking (Linux & Windows Side-by-Side)
 
-# Encrypt an entire directory tree:
-./vault.sh -e demo_data/research_project
+> **Golden Rule for University Labs:** In computer science exams, creating files with mouse right-click or Windows Explorer will cost you marks. Everything must be executed via shell commands!
 
-# Decrypt any .vault package (auto-detects file vs folder):
-./vault.sh -d demo_data/classified_report.txt.vault
-./vault.sh -d demo_data/research_project.vault
+### 1. Essential Command Equivalents: Linux vs Windows PowerShell
 
-# Check SHA-256 integrity against audit history:
-./vault.sh -v demo_data/classified_report.txt
+| Action | 🐧 Linux (Bash Terminal) | 🪟 Windows (PowerShell) |
+| :--- | :--- | :--- |
+| **Create empty file** | `touch document.txt` | `New-Item document.txt` |
+| **Create file with text** | `echo "Secret Data" > secret.txt` | `echo "Secret Data" > secret.txt` |
+| **Append line to file** | `echo "More Data" >> secret.txt` | `echo "More Data" >> secret.txt` |
+| **View / Read file** | `cat secret.txt` | `cat secret.txt` *(or `Get-Content`)* |
+| **Create folder** | `mkdir confidential_lab` | `mkdir confidential_lab` |
+| **Create nested folders** | `mkdir -p project/src/utils` | `mkdir project/src/utils` |
+| **List directory contents** | `ls -la` | `ls` *(or `dir`)* |
+| **Delete file** | `rm secret.txt` | `rm secret.txt` |
+| **Delete folder & contents** | `rm -rf confidential_lab` | `rm -r -fo confidential_lab` |
+| **Make script executable** | `chmod +x vault.sh` | Run `.\vault.bat` |
 
-# View audit history log:
-./vault.sh -l
+---
 
-# Run internal self-test suite:
-./vault.sh -t
+### 2. Feature-by-Feature Guided Hands-On Practice
 
-# Display help message:
-./vault.sh -h
-```
+#### Step 1: Make Scripts Executable (Linux Only)
+- **Linux:** `chmod +x vault.sh test_vault.sh`
+- **Windows:** Automatically handled by `.\vault.bat`
+
+#### Step 2: Create a Secret File via Terminal (No GUI!)
+- **Linux:**
+  ```bash
+  echo "CONFIDENTIAL: Midterm Exam Paper Key 2026" > my_secret.txt
+  cat my_secret.txt
+  ```
+- **Windows PowerShell:**
+  ```powershell
+  echo "CONFIDENTIAL: Midterm Exam Paper Key 2026" > my_secret.txt
+  cat my_secret.txt
+  ```
+
+#### Step 3: Encrypt the File
+- **Linux:** `./vault.sh -e my_secret.txt`
+- **Windows PowerShell:** `.\vault.bat -e my_secret.txt`
+*(Enter password `Secret123!`, confirm it, and choose `n` for shredding)*
+- **Inspect Ciphertext:** `cat my_secret.txt.vault` *(Notice scrambled unreadable ciphertext)*
+
+#### Step 4: Delete Plaintext & Decrypt It Back
+- **Linux:**
+  ```bash
+  rm my_secret.txt
+  ./vault.sh -d my_secret.txt.vault
+  cat my_secret.txt
+  ```
+- **Windows PowerShell:**
+  ```powershell
+  rm my_secret.txt
+  .\vault.bat -d my_secret.txt.vault
+  cat my_secret.txt
+  ```
+
+#### Step 5: Create a Nested Directory Structure via Terminal
+- **Linux:**
+  ```bash
+  mkdir -p my_project/src my_project/data
+  echo "print('Secure Computation')" > my_project/src/app.py
+  echo "id,score\n202601,98" > my_project/data/scores.csv
+  ls -R my_project
+  ```
+- **Windows PowerShell:**
+  ```powershell
+  mkdir my_project/src, my_project/data
+  echo "print('Secure Computation')" > my_project/src/app.py
+  echo "id,token`n1,alpha99" > my_project/data/scores.csv
+  ls -R my_project
+  ```
+
+#### Step 6: Encrypt & Decrypt Directory
+- **Linux:**
+  ```bash
+  ./vault.sh -e my_project          # Encrypt
+  rm -rf my_project                 # Remove original
+  ./vault.sh -d my_project.vault    # Decrypt (auto-extracts tree)
+  ls -R my_project                  # Verify structure
+  ```
+- **Windows PowerShell:**
+  ```powershell
+  .\vault.bat -e my_project         # Encrypt
+  rm -r -fo my_project              # Remove original
+  .\vault.bat -d my_project.vault   # Decrypt (auto-extracts tree)
+  ls -R my_project                  # Verify structure
+  ```
+
+#### Step 7: Security Negative Test (Wrong Password Rejection)
+- **Linux:** `./vault.sh -d my_secret.txt.vault` *(Type: `WrongPass999`)*
+- **Windows PowerShell:** `.\vault.bat -d my_secret.txt.vault` *(Type: `WrongPass999`)*
+*(Cleanly rejected with `[ERROR] Decryption failed! Incorrect password or corrupted file.`)*
+
+#### Step 8: Verify SHA-256 Checksum & View Audit Trail
+- **Linux:**
+  ```bash
+  ./vault.sh -v my_secret.txt
+  ./vault.sh -l
+  ```
+- **Windows PowerShell:**
+  ```powershell
+  .\vault.bat -v my_secret.txt
+  .\vault.bat -l
+  ```
+
+#### Step 9: Run Automated Self-Tests
+- **Linux:** `./test_vault.sh`
+- **Windows PowerShell:** `.\test_vault.bat`
+
+#### Step 10: Launch Interactive Terminal Menu
+- **Linux:** `./vault.sh`
+- **Windows PowerShell:** `.\vault.bat` *(or double-click `run_menu.bat`)*
 
 ---
 

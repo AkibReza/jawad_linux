@@ -8,8 +8,7 @@
 #              directory archiving, and audit logging.
 # ==============================================================================
 
-# Exit immediately if a command exits with a non-zero status (defensive scripting)
-# Note: We manage error exits explicitly in key functions.
+# Exit immediately if a command in a pipeline fails (defensive scripting)
 set -o pipefail
 
 # ------------------------------------------------------------------------------
@@ -43,7 +42,7 @@ cleanup() {
     if [[ ${#TEMP_FILES[@]} -gt 0 ]]; then
         for tmp in "${TEMP_FILES[@]}"; do
             if [[ -f "$tmp" ]]; then
-                # Overwrite temp file before deleting for basic security
+                # Overwrite temp file with random data before deleting for security
                 dd if=/dev/urandom of="$tmp" bs=1k count=1 status=none 2>/dev/null || true
                 rm -f "$tmp" 2>/dev/null || true
             elif [[ -d "$tmp" ]]; then
@@ -89,6 +88,23 @@ msg_error() {
 }
 
 # ------------------------------------------------------------------------------
+# Windows & Cross-Platform Path Sanitizer
+# Cleans paths pasted via drag-and-drop in Windows PowerShell / CMD
+# (removes surrounding quotes and converts backslashes to forward slashes).
+# ------------------------------------------------------------------------------
+sanitize_path() {
+    local p="$1"
+    # Remove leading and trailing double or single quotes
+    p="${p%\"}"
+    p="${p#\"}"
+    p="${p%\'}"
+    p="${p#\'}"
+    # Convert Windows backslashes to forward slashes
+    p="${p//\\//}"
+    echo "$p"
+}
+
+# ------------------------------------------------------------------------------
 # Dependency Verification
 # Ensures all required standard UNIX tools exist on the system.
 # ------------------------------------------------------------------------------
@@ -107,7 +123,7 @@ check_dependencies() {
 
     if [[ ${#missing[@]} -gt 0 ]]; then
         msg_error "Missing required dependencies: ${missing[*]}"
-        msg_error "Please install them via your package manager (e.g., apt install openssl coreutils tar)."
+        msg_error "Please ensure standard utilities (OpenSSL, Coreutils, Tar) are in PATH."
         exit 1
     fi
 }
@@ -135,9 +151,9 @@ log_audit() {
     local details="$4"
     local timestamp
     timestamp=$(date "+%Y-%m-%d %H:%M:%S")
-    local user="${USER:-$(whoami 2>/dev/null || echo "unknown")}"
+    local user="${USER:-$(whoami 2>/dev/null || echo "student")}"
 
-    # Format: [TIMESTAMP] [USER] [ACTION] [TARGET] [STATUS] [DETAILS]
+    # Format: [TIMESTAMP] [USER] [ACTION] [TARGET] [STATUS] - DETAILS
     echo "[$timestamp] [User: $user] [Action: $action] [Target: $target] [Status: $status] - $details" >> "$AUDIT_LOG_FILE"
 }
 
@@ -162,7 +178,7 @@ prompt_password() {
         fi
 
         if [[ ${#pass1} -lt 6 ]]; then
-            msg_warn "Password should be at least 6 characters for security."
+            msg_warn "Password should be at least 6 characters for strong security."
         fi
 
         if [[ "$confirm_needed" == "true" ]]; then
@@ -176,7 +192,6 @@ prompt_password() {
             fi
         fi
 
-        # Export password safely to caller via global variable
         USER_PASSWORD="$pass1"
         break
     done
@@ -232,7 +247,6 @@ encrypt_file() {
         return 1
     fi
 
-    # Output filename
     local outfile="${infile}.vault"
     if [[ -f "$outfile" ]]; then
         echo -en "${COLOR_YELLOW}Warning: Output file '$outfile' already exists. Overwrite? (y/N): ${COLOR_RESET}"
@@ -254,8 +268,7 @@ encrypt_file() {
 
     msg_info "Encrypting using AES-256-CBC with PBKDF2 (100,000 iterations)..."
     
-    # Run OpenSSL encryption
-    # Using -pbkdf2 and high iteration count protects against brute-force dictionary attacks
+    # Run OpenSSL encryption via stdin pipe to prevent password leaking in 'ps aux'
     if printf "%s" "$password" | openssl enc -aes-256-cbc -salt -pbkdf2 -iter "$PBKDF2_ITERATIONS" \
         -in "$infile" -out "$outfile" -pass stdin 2>/dev/null; then
         
@@ -488,7 +501,6 @@ show_audit_log() {
 
 # ------------------------------------------------------------------------------
 # Self-Test / Verification Suite
-# Demonstrates script reliability directly to professors.
 # ------------------------------------------------------------------------------
 run_self_test() {
     echo -e "\n${COLOR_BOLD}=== RUNNING AUTOMATED SELF-TEST SUITE ===${COLOR_RESET}"
@@ -547,7 +559,6 @@ run_self_test() {
     printf "%s" "$test_pass" | openssl enc -aes-256-cbc -salt -pbkdf2 -iter "$PBKDF2_ITERATIONS" \
         -in "$temp_archive" -out "$test_dir/subfolder.vault" -pass stdin 2>/dev/null
     
-    # Decrypt and unpack
     local dec_archive="$test_dir/restored_sub.tar.gz"
     printf "%s" "$test_pass" | openssl enc -d -aes-256-cbc -salt -pbkdf2 -iter "$PBKDF2_ITERATIONS" \
         -in "$test_dir/subfolder.vault" -out "$dec_archive" -pass stdin 2>/dev/null
@@ -568,12 +579,13 @@ run_self_test() {
 }
 
 # ------------------------------------------------------------------------------
-# Interactive Menu
+# Interactive Menu & Help
 # ------------------------------------------------------------------------------
 show_help() {
     print_banner
     echo -e "${COLOR_BOLD}USAGE:${COLOR_RESET}"
-    echo "  $0 [OPTIONS] [TARGET]"
+    echo "  vault.sh [OPTIONS] [TARGET]  (in Linux/WSL/Git Bash)"
+    echo "  .\\vault.bat [OPTIONS] [TARGET] (in Windows PowerShell / CMD)"
     echo ""
     echo -e "${COLOR_BOLD}OPTIONS:${COLOR_RESET}"
     echo "  -e <path>    Encrypt a file or directory"
@@ -583,11 +595,11 @@ show_help() {
     echo "  -t           Run automated self-tests and validation"
     echo "  -h           Show this help message"
     echo ""
-    echo -e "${COLOR_BOLD}EXAMPLES:${COLOR_RESET}"
-    echo "  $0 -e confidential.pdf        # Encrypts file to confidential.pdf.vault"
-    echo "  $0 -e ./project_folder        # Archives and encrypts directory to project_folder.vault"
-    echo "  $0 -d confidential.pdf.vault  # Decrypts file back to confidential.pdf"
-    echo "  $0                            # Runs interactive student menu"
+    echo -e "${COLOR_BOLD}EXAMPLES (Windows PowerShell):${COLOR_RESET}"
+    echo "  .\\vault.bat -e demo_data/classified_report.txt"
+    echo "  .\\vault.bat -e demo_data/research_project"
+    echo "  .\\vault.bat -d demo_data/classified_report.txt.vault"
+    echo "  .\\vault.bat                                      # Runs interactive menu"
     echo ""
 }
 
@@ -608,23 +620,70 @@ interactive_menu() {
 
         case "$choice" in
             1)
-                echo -en "Enter path of file to encrypt: "
+                echo ""
+                echo -e "${COLOR_BLUE}Tip: Type 'sample' for demo_data/classified_report.txt, or drag-and-drop any file.${COLOR_RESET}"
+                echo -en "Enter path of file to encrypt (or 'list'): "
                 read -r filepath
+                filepath=$(sanitize_path "$filepath")
+
+                if [[ "$filepath" == "list" ]]; then
+                    echo -e "${COLOR_CYAN}Files available to encrypt:${COLOR_RESET}"
+                    find demo_data -maxdepth 2 -type f 2>/dev/null || ls -p
+                    echo -en "Enter path of chosen file: "
+                    read -r filepath
+                    filepath=$(sanitize_path "$filepath")
+                elif [[ "$filepath" == "sample" || "$filepath" == "demo" ]]; then
+                    filepath="demo_data/classified_report.txt"
+                    msg_info "Using sample file: $filepath"
+                fi
+
                 encrypt_file "$filepath"
                 ;;
             2)
-                echo -en "Enter path of directory to encrypt: "
+                echo ""
+                echo -e "${COLOR_BLUE}Tip: Type 'sample' for demo_data/research_project, or drag-and-drop any folder.${COLOR_RESET}"
+                echo -en "Enter path of directory to encrypt (or 'list'): "
                 read -r dirpath
+                dirpath=$(sanitize_path "$dirpath")
+
+                if [[ "$dirpath" == "list" ]]; then
+                    echo -e "${COLOR_CYAN}Directories available to encrypt:${COLOR_RESET}"
+                    find . -maxdepth 2 -type d ! -path '*/.*' 2>/dev/null
+                    echo -en "Enter path of chosen directory: "
+                    read -r dirpath
+                    dirpath=$(sanitize_path "$dirpath")
+                elif [[ "$dirpath" == "sample" || "$dirpath" == "demo" ]]; then
+                    dirpath="demo_data/research_project"
+                    msg_info "Using sample directory: $dirpath"
+                fi
+
                 encrypt_directory "$dirpath"
                 ;;
             3)
-                echo -en "Enter path of .vault file to decrypt: "
+                echo ""
+                echo -e "${COLOR_BLUE}Tip: Drag-and-drop any .vault file here, or type 'list' to find existing vaults.${COLOR_RESET}"
+                echo -en "Enter path of .vault file to decrypt (or 'list'): "
                 read -r vaultpath
+                vaultpath=$(sanitize_path "$vaultpath")
+
+                if [[ "$vaultpath" == "list" ]]; then
+                    echo -e "${COLOR_CYAN}Existing .vault packages found:${COLOR_RESET}"
+                    find . -maxdepth 3 -name "*.vault" 2>/dev/null
+                    echo -en "Enter path of chosen .vault file: "
+                    read -r vaultpath
+                    vaultpath=$(sanitize_path "$vaultpath")
+                fi
+
                 decrypt_vault "$vaultpath"
                 ;;
             4)
-                echo -en "Enter path of file/directory to verify: "
+                echo ""
+                echo -en "Enter path of file/directory to verify (or 'sample'): "
                 read -r verify_path
+                verify_path=$(sanitize_path "$verify_path")
+                if [[ "$verify_path" == "sample" ]]; then
+                    verify_path="demo_data/classified_report.txt"
+                fi
                 verify_integrity "$verify_path"
                 ;;
             5)
@@ -664,7 +723,8 @@ main() {
     while getopts ":e:d:v:lth" opt; do
         case "$opt" in
             e)
-                local target="$OPTARG"
+                local target
+                target=$(sanitize_path "$OPTARG")
                 if [[ -d "$target" ]]; then
                     encrypt_directory "$target"
                 elif [[ -f "$target" ]]; then
@@ -676,11 +736,15 @@ main() {
                 exit 0
                 ;;
             d)
-                decrypt_vault "$OPTARG"
+                local target
+                target=$(sanitize_path "$OPTARG")
+                decrypt_vault "$target"
                 exit 0
                 ;;
             v)
-                verify_integrity "$OPTARG"
+                local target
+                target=$(sanitize_path "$OPTARG")
+                verify_integrity "$target"
                 exit 0
                 ;;
             l)
@@ -708,10 +772,8 @@ main() {
         esac
     done
 
-    # If an argument was provided without flags, show help
     show_help
 }
 
 # Invoke entry point
 main "$@"
-
